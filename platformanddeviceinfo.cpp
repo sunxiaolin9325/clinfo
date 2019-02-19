@@ -1,5 +1,6 @@
 #include "platformanddeviceinfo.h"
 #include "ui_platformanddeviceinfo.h"
+#include <stdio.h>
 
 PlatformAndDeviceInfo::PlatformAndDeviceInfo(QWidget *parent) :
     QWidget(parent),
@@ -12,13 +13,18 @@ PlatformAndDeviceInfo::PlatformAndDeviceInfo(QWidget *parent) :
 
     devices=NULL;
     //得到平台数量
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
     getPlatformNum(&platformNum);
     //给平台列表分配内存
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
     platforms=(cl_platform_id*)malloc(sizeof(cl_platform_id)*platformNum);
     //得到平台列表
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
     getPlatforms(platforms);
     //初始化平台索引组合框
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
     initPlatformIndex();
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
 }
 
 PlatformAndDeviceInfo::~PlatformAndDeviceInfo()
@@ -40,13 +46,22 @@ PlatformAndDeviceInfo::~PlatformAndDeviceInfo()
 //得到平台数量
 void PlatformAndDeviceInfo::getPlatformNum(cl_uint *num)
 {
-    CHECK_ERROR(clGetPlatformIDs(0,NULL,num));
+	int ret = 0;
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
+//CHECK_ERROR(clGetPlatformIDs(0,NULL,num));
+    if ((ret = clGetPlatformIDs(0,NULL,num)) < 0) {
+		printf("ret = %d\n", ret);
+		exit(0);
+	}
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
 }
 
 //得到平台列表
 void PlatformAndDeviceInfo::getPlatforms(cl_platform_id *platformList)
 {
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
     CHECK_ERROR(clGetPlatformIDs(platformNum,platformList,NULL));
+	printf("%d\t%s\n", __LINE__, __FUNCTION__);
 }
 
 //初始化平台索引组合框
