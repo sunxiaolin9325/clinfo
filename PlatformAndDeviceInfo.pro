@@ -24,4 +24,4 @@ FORMS    += platformanddeviceinfo.ui
 INCLUDEPATH +=/opt/data/libmali/include/original/
 
 #添加OpenCL的库文件
-LIBS += -L/opt/data/libmali/lib/ -lOpenCL -ldrm
+LIBS += -lGAL -lOpenCL
